@@ -7,19 +7,20 @@
 var app = require('../app');
 var debug = require('debug')('polyglot:server');
 var https = require('https');
+var http = require('http');
 const fs = require('fs')
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort('443' || process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-
+var serverHttp = http.createServer()
 var server = https.createServer({
   key: fs.readFileSync('privkey.pem'),
   cert: fs.readFileSync('fullchain.pem')
@@ -29,6 +30,14 @@ var server = https.createServer({
  * Listen on provided port, on all network interfaces.
  */
 
+serverHttp.get('*', function (req, res) {
+  res.redirect('https://' + req.headers.host + req.url);
+
+  // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+  // res.redirect('https://example.com' + req.url);
+})
+
+serverHttp.listen(80);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
