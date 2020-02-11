@@ -11,7 +11,10 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}\\bin\\www"
+      "env": {
+        "PORT": "8081"
+      },
+      "program": "${workspaceFolder}/bin/www"
     }
   ]
 }

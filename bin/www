@@ -15,9 +15,8 @@ const path = require('path')
 /**
  * Get port from environment and store in Express.
  */
-
-// var port = normalizePort('443' || process.env.PORT || '3000');
-// app.set('port', port);
+var port = normalizePort(process.env.PORT || '80');
+app.set('port', port);
 
 /**
  * Create HTTP server.
@@ -100,4 +99,4 @@ function onListening() {
 //   res.redirect('https://' + req.headers.host)
 // });
 const httpServer = http.createServer(app);
-httpServer.listen(80, () => console.log(`HTTP server listening`));
+httpServer.listen(port, () => console.log(`HTTP server listening ${port}`));
