@@ -2,7 +2,10 @@ const { url, dbName } = require('../config').db
 var MongoClient = require('mongodb').MongoClient
 
 let db = null
-MongoClient.connect(url, function (err, client) {
+MongoClient.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}, function (err, client) {
   if (err) throw err
 
   db = client.db(dbName)

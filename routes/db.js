@@ -4,19 +4,29 @@ const { insert, update, getList, delByName } = require('../services/db')
 
 router.post('/', async function (req, res, next) {
   let result = await insert(req.body.collection, req.body)
-  res.send(JSON.stringify(result.result))
+  let r = format(result.result.n, result.result)
+  res.send(r)
 });
 router.put('/', async function (req, res, next) {
   let result = await update(req.body.collection, req.body)
-  res.send(JSON.stringify(result.result))
+  let r = format(result.result.n, result.result)
+  res.send(r)
 });
 router.delete('/', async function (req, res, next) {
   let result = await delByName(req.body.collection, req.body.name)
-  res.send(JSON.stringify(result.result))
+  let r = format(result.result.n, result.result)
+  res.send(r)
 });
 router.get('/:collection', async function (req, res, next) {
   let list = await getList(req.params.collection)
-  res.send(JSON.stringify(list))
+  let r = format(0, list)
+  res.send(r)
 });
 
+function format(id, res) {
+  return JSON.stringify({
+    id,
+    res
+  })
+}
 module.exports = router;
