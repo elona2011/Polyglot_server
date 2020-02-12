@@ -19,7 +19,7 @@ router.delete('/', async function (req, res, next) {
 });
 router.get('/:collection', async function (req, res, next) {
   let list = await getList(req.params.collection)
-  let r = format(0, list)
+  let r = format(1, list)
   res.send(r)
 });
 
