@@ -42,7 +42,7 @@ module.exports = {
   },
   getList(collectionName) {
     return new Promise((res, rej) => {
-      db.collection(collectionName).find({}).toArray((err, docs) => {
+      db.collection(collectionName).find({}, { sort: [['forgetNum', -1]] }).toArray((err, docs) => {
         if (err) throw err
         res(docs)
       })

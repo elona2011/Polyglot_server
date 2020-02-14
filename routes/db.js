@@ -4,17 +4,17 @@ const { insert, update, getList, delByName } = require('../services/db')
 
 router.post('/', async function (req, res, next) {
   let result = await insert(req.body.collection, req.body)
-  let r = format(result.result.n, result.result)
+  let r = format(result.result.ok, result.result)
   res.send(r)
 });
 router.put('/', async function (req, res, next) {
   let result = await update(req.body.collection, req.body)
-  let r = format(result.result.n, result.result)
+  let r = format(result.result.ok, result.result)
   res.send(r)
 });
 router.delete('/', async function (req, res, next) {
   let result = await delByName(req.body.collection, req.body.name)
-  let r = format(result.result.n, result.result)
+  let r = format(result.result.ok, result.result)
   res.send(r)
 });
 router.get('/:collection', async function (req, res, next) {
